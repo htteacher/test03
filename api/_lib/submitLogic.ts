@@ -1,5 +1,5 @@
-import { MAX_ATTEMPTS } from './attemptsLogic'
-import type { Submission } from '../../src/types/quiz'
+import { MAX_ATTEMPTS } from './attemptsLogic.js'
+import type { Submission } from '../../src/types/quiz.js'
 
 export interface SubmissionStore {
   countSubmissions(className: string, studentNumber: number): Promise<number>

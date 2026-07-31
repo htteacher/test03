@@ -1,6 +1,6 @@
 import { describe, it, expect } from 'vitest'
-import { getRemainingAttempts, MAX_ATTEMPTS } from './attemptsLogic'
-import type { AttemptCounter } from './attemptsLogic'
+import { getRemainingAttempts, MAX_ATTEMPTS } from './attemptsLogic.js'
+import type { AttemptCounter } from './attemptsLogic.js'
 
 function fakeCounter(count: number): AttemptCounter {
   return {

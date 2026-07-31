@@ -1,7 +1,7 @@
 import { describe, it, expect } from 'vitest'
-import { getTeacherResults } from './resultsLogic'
-import type { ResultsStore } from './resultsLogic'
-import type { SubmissionRecord } from '../../src/types/quiz'
+import { getTeacherResults } from './resultsLogic.js'
+import type { ResultsStore } from './resultsLogic.js'
+import type { SubmissionRecord } from '../../src/types/quiz.js'
 
 const records: SubmissionRecord[] = [
   {

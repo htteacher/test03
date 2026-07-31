@@ -1,7 +1,7 @@
 import { describe, it, expect, vi } from 'vitest'
-import { submitQuizResult } from './submitLogic'
-import type { SubmissionStore } from './submitLogic'
-import type { Submission } from '../../src/types/quiz'
+import { submitQuizResult } from './submitLogic.js'
+import type { SubmissionStore } from './submitLogic.js'
+import type { Submission } from '../../src/types/quiz.js'
 
 const submission: Submission = {
   className: '3-2',

@@ -1,4 +1,4 @@
-import type { SubmissionRecord } from '../../src/types/quiz'
+import type { SubmissionRecord } from '../../src/types/quiz.js'
 
 export interface ResultsStore {
   listSubmissions(): Promise<SubmissionRecord[]>
