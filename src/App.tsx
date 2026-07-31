@@ -1,7 +1,7 @@
 function App() {
   return (
     <>
-      <h1>우리 반 앱</h1>
+      <h1>너희 반 앱</h1>
     </>
   )
 }
