@@ -1,9 +1,7 @@
+import QuizApp from './quiz/QuizApp'
+
 function App() {
-  return (
-    <>
-      <h1>역사 퀴즈 앱</h1>
-    </>
-  )
+  return <QuizApp />
 }
 
 export default App
