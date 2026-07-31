@@ -57,4 +57,35 @@ describe('QuizApp', () => {
       }),
     )
   })
+
+  it('shows the limit-reached message when submit returns 403', async () => {
+    const user = userEvent.setup()
+    const fetchMock = vi.mocked(fetch)
+    fetchMock.mockImplementationOnce(() => jsonResponse(200, { remaining: 3 }))
+    fetchMock.mockImplementationOnce(() => jsonResponse(403, { error: '이미 3회 응시했습니다.' }))
+
+    render(<QuizApp />)
+
+    await user.type(screen.getByLabelText('반'), '3-2')
+    await user.type(screen.getByLabelText('번호'), '7')
+    await user.click(screen.getByRole('button', { name: '확인' }))
+
+    expect(await screen.findByText('남은 응시 횟수: 3회')).toBeInTheDocument()
+
+    await user.click(screen.getByLabelText('5문제'))
+    await user.click(screen.getByRole('button', { name: '시작하기' }))
+
+    expect(screen.getByText('1 / 5')).toBeInTheDocument()
+
+    for (let i = 0; i < 5; i += 1) {
+      const options = screen
+        .getAllByRole('button')
+        .filter((button) => button.hasAttribute('data-status'))
+      await user.click(options[0])
+      const isLast = i === 4
+      await user.click(screen.getByRole('button', { name: isLast ? '결과 보기' : '다음 문제' }))
+    }
+
+    expect(await screen.findByText('이미 3회 응시했습니다.')).toBeInTheDocument()
+  })
 })

@@ -78,8 +78,15 @@ function QuizApp() {
     try {
       const data = await postJson<{ results: SubmissionRecord[] }>('/api/results', { password })
       dispatch({ type: 'TEACHER_LOGIN_SUCCESS', results: data.results })
-    } catch {
-      dispatch({ type: 'TEACHER_LOGIN_FAILURE', message: '비밀번호가 틀렸습니다.' })
+    } catch (error) {
+      if (error instanceof ApiError && error.status === 401) {
+        dispatch({ type: 'TEACHER_LOGIN_FAILURE', message: '비밀번호가 틀렸습니다.' })
+      } else {
+        dispatch({
+          type: 'TEACHER_LOGIN_FAILURE',
+          message: error instanceof Error ? error.message : '결과를 불러오지 못했습니다.',
+        })
+      }
     }
   }
 

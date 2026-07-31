@@ -9,8 +9,13 @@ export default async function handler(req: VercelRequest, res: VercelResponse) {
   }
 
   const { password } = req.body ?? {}
+  if (typeof password !== 'string') {
+    res.status(400).json({ error: 'password가 필요합니다.' })
+    return
+  }
+
   const expectedPassword = process.env.TEACHER_PASSWORD
-  if (typeof password !== 'string' || !expectedPassword) {
+  if (!expectedPassword) {
     res.status(500).json({ error: '서버에 비밀번호가 설정되어 있지 않습니다.' })
     return
   }

@@ -14,9 +14,15 @@ export default async function handler(req: VercelRequest, res: VercelResponse) {
     return
   }
 
+  const trimmedClassName = className.trim()
+  if (trimmedClassName === '') {
+    res.status(400).json({ error: 'className과 studentNumber가 필요합니다.' })
+    return
+  }
+
   try {
     const store = createSubmissionStore(createSupabaseAdminClient())
-    const remaining = await getRemainingAttempts(store, className, studentNumber)
+    const remaining = await getRemainingAttempts(store, trimmedClassName, studentNumber)
     res.status(200).json({ remaining })
   } catch (error) {
     console.error(error)

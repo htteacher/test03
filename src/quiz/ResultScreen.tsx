@@ -1,4 +1,4 @@
-import { useEffect } from 'react'
+import { useEffect, useRef } from 'react'
 import type { SubmitStatus } from './quizReducer'
 
 interface ResultScreenProps {
@@ -10,7 +10,11 @@ interface ResultScreenProps {
 }
 
 function ResultScreen({ score, total, submitStatus, onSubmit, onRestart }: ResultScreenProps) {
+  const submitted = useRef(false)
+
   useEffect(() => {
+    if (submitted.current) return
+    submitted.current = true
     onSubmit()
   }, [])
 

@@ -13,15 +13,28 @@ export default async function handler(req: VercelRequest, res: VercelResponse) {
   if (
     typeof className !== 'string' ||
     typeof studentNumber !== 'number' ||
+    !Number.isInteger(studentNumber) ||
+    studentNumber <= 0 ||
     (category !== 'world' && category !== 'korea') ||
     typeof score !== 'number' ||
-    typeof total !== 'number'
+    typeof total !== 'number' ||
+    !Number.isInteger(total) ||
+    total <= 0 ||
+    !Number.isInteger(score) ||
+    score < 0 ||
+    score > total
   ) {
     res.status(400).json({ error: '요청 형식이 올바르지 않습니다.' })
     return
   }
 
-  const submission: Submission = { className, studentNumber, category, score, total }
+  const trimmedClassName = className.trim()
+  if (trimmedClassName === '') {
+    res.status(400).json({ error: '요청 형식이 올바르지 않습니다.' })
+    return
+  }
+
+  const submission: Submission = { className: trimmedClassName, studentNumber, category, score, total }
 
   try {
     const store = createSubmissionStore(createSupabaseAdminClient())
