@@ -1,13 +1,9 @@
-import { describe, it, expect, vi, afterEach } from 'vitest'
-import { render, screen, cleanup } from '@testing-library/react'
+import { describe, it, expect, vi } from 'vitest'
+import { render, screen } from '@testing-library/react'
 import userEvent from '@testing-library/user-event'
 import IntroScreen from './IntroScreen'
 
 describe('IntroScreen', () => {
-  afterEach(() => {
-    cleanup()
-  })
-
   it('keeps the confirm button disabled until class and number are filled in', async () => {
     const user = userEvent.setup()
     render(
